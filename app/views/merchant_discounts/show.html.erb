@@ -1,4 +1,9 @@
 <h3>Details of this Discount yo</h3>
 
-<p>Discount Details:<%= @discount.percentage * 100 %>% off when customer
-buys <%= @discount.threshold %> amount of the same item.</p>
+<div class="discount_show">
+  <p>Discount Details:<%= @discount.percentage * 100 %>% off when customer
+    buys <%= @discount.threshold %> amount of the same item.</p>
+
+    <%= link_to 'Edit Discount', "/merchants/#{@merchant.id}/discounts/#{@discount.id}/edit" %>
+
+</div>
