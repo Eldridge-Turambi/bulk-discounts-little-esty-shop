@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/welcome', to: 'welcome#index'
   get '/merchants/:id/dashboard', to: 'merchants#show'
 
+  get '/merchants/:id/discounts', to: 'merchant_discounts#index'
+
   resources :merchants, except: [:show] do
     resources :items, controller: :merchant_items
     resources :invoices, controller: :merchant_invoices

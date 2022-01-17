@@ -98,12 +98,12 @@ RSpec.describe "Merchant Dashboard Show Page" do
     expect(page).to have_content("DJ Tanner | Successful Transactions: 1")
   end
 
-  xit 'sees a link to Index page of Bulk Discounts' do
+  it 'sees a link to Index page of Bulk Discounts' do
     visit "/merchants/#{@merch_1.id}/dashboard"
 
     click_link 'View my Discounts'
 
-    expect(current_path).to eq()
+    expect(current_path).to eq("/merchants/#{@merch_1.id}/discounts")
   end
 
 

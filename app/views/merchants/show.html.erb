@@ -15,3 +15,7 @@
     <%= customer.first_name %> <%= customer.last_name %> | Successful Transactions: <%= customer.transactions.count %>
     <% end %>
 </div>
+
+<div class="merchant_discounts">
+  <%= link_to 'View my Discounts', "/merchants/#{@merchant.id}/discounts" %>
+</div>
