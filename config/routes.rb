@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/merchants/:id/dashboard', to: 'merchants#show'
 
   get '/merchants/:id/discounts', to: 'merchant_discounts#index'
+  get '/merchants/:id/discounts/:discount_id', to: 'merchant_discounts#show'
 
   resources :merchants, except: [:show] do
     resources :items, controller: :merchant_items
