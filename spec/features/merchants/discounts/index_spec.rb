@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Discoiunt Index Page' do
+RSpec.describe 'Merchant Discount Index Page' do
 
   it 'sees list of the merchants bild discounts including the percentage discount and quantity threshold' do
     merchant1 = Merchant.create!(name: 'merchant1')
@@ -19,6 +19,18 @@ RSpec.describe 'Merchant Discoiunt Index Page' do
       expect(page).to have_link("Details of #{discount1.percentage * 100} discount")
       click_link "Details of #{discount1.percentage * 100} discount"
       expect(current_path).to eq("/merchants/#{merchant1.id}/discounts/#{discount1.id}")
+    end
+  end
+
+  it 'sees a link to create a new discount' do
+    merchant1 = Merchant.create!(name: 'merchant1')
+
+    visit "/merchants/#{merchant1.id}/discounts"
+
+    within '.create_discount' do
+      click_link "Create New Discount Here"
+
+      expect(current_path).to eq("/merchants/#{merchant1.id}/discounts/new")
     end
   end
 end
