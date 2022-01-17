@@ -6,6 +6,7 @@
   customer purchases, they will save <%= discount.percentage * 100 %>%
   off of their purchase of their item.</p>
   <%= link_to "Details of #{discount.percentage * 100} discount", "/merchants/#{@merchant.id}/discounts/#{discount.id}" %>
+  <%= link_to "Delete #{discount.percentage * 100} Discount", "/merchants/#{@merchant.id}/discounts/#{discount.id}", method: :delete  %>
 <% end %>
 
 </div>
