@@ -20,7 +20,7 @@ RSpec.describe 'Discount Edit Page' do
       fill_in 'threshold', with: 20
 
       click_button 'Update This Discount'
-      
+
       expect(current_path).to eq("/merchants/#{merchant1.id}/discounts/#{discount1.id}")
     end
 
