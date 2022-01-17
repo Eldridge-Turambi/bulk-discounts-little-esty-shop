@@ -1,0 +1,11 @@
+<div class="merchant_discounts">
+
+<h3>These are your discounts as a Merchant</h3>
+<% @merchant.bulk_discounts.each do |discount| %>
+  <p>For every <%= discount.threshold %> count of the item that a
+  customer purchases, they will save <%= discount.percentage * 100 %>%
+  off of their purchase of their item.</p>
+  <%= link_to "Details of #{discount.percentage * 100} discount", "/merchants/#{@merchant.id}/discounts/#{discount.id}" %>
+<% end %>
+
+</div>
