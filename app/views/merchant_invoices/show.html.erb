@@ -8,6 +8,11 @@
 <div class="revenue">
   <h3>Total Revenue: <%= number_to_currency(@invoice.total_revenue / 100.to_f) %></h3>
 </div>
+
+<div class="discounted_revenue">
+  <h3>Discounted Revenue: <%= number_to_currency(@invoice.discounted_revenue / 100.to_f) %></h3>
+</div>
+
 <div class = "invoice-items">
   <table>
     <tr>

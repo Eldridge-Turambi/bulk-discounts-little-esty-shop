@@ -140,4 +140,33 @@ RSpec.describe 'merchant invoices show page' do
       expect(invoice_item_1.status).to eq("shipped")
     end
   end
+
+
+
+#########################################################################################
+
+
+  describe 'Bulk Discounts Stories' do
+
+    it 'Shows merchant total revenue for merchant from this invoice not including discounts' do
+      merchant1 = Merchant.create!(name: 'merchant1')
+
+      discount1 = merchant1.bulk_discounts.create!(percentage: 0.20, threshold: 10)
+
+      customer1 = Customer.create!(first_name: 'first_name1', last_name: 'last_name1')
+
+      invoice1 = Invoice.create!(customer_id: customer1.id, status: 'completed')
+
+      item1 = Item.create!(merchant_id: merchant1.id, name: 'item1', description: 'widget description', unit_price: 14000)
+
+      invoice_item1 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id, quantity: 10, unit_price: 14000)
+      visit merchant_invoice_path(merchant1, invoice1)
+
+
+      within '.discounted_revenue' do
+        expect(page).to have_content("Discounted Revenue: $1,120.00")
+      end
+
+    end
+  end
 end
