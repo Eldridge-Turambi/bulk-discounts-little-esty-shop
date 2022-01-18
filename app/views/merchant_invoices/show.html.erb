@@ -30,6 +30,11 @@
       <%= form_with model: [@merchant, inv_itm], local: true do |f| %>
         <td><%= f.select :status, ["pending", "packaged", "shipped"] %> <%= f.submit %></td>
       <% end %>
+      <% if inv_itm.best_discount == nil %>
+        <td><p>There is no applicable discount with for this purchase</p></td>>
+      <% else %>
+        <td><p><%= link_to "#{inv_itm.item.name} Discount Info", "/merchants/#{@merchant.id}/discounts/#{inv_itm.best_discount.id}" %></p></td>
+      <% end  %>
     </tr>
   </div>
   <% end %>
