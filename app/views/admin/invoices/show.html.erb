@@ -18,5 +18,9 @@
 <%= render partial: 'form', locals: { model: [:admin, @invoice] }%>
 
 <div class="total_revenue">
-  <p>Total Revenue: <%= @invoice.total_revenue %></p>
+  <h3>Total Revenue: <%= number_to_currency(@invoice.total_revenue / 100.to_f) %></h3>
+</div>
+
+<div class="discounted_revenue">
+  <h3>Discounted Revenue: <%= number_to_currency(@invoice.discounted_revenue / 100.to_f) %></h3>
 </div>
