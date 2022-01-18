@@ -110,20 +110,28 @@ RSpec.describe 'Admin Invoice Show Page' do
       merchant1 = Merchant.create!(name: 'merchant1')
 
       discount1 = merchant1.bulk_discounts.create!(percentage: 0.20, threshold: 10)
+      discount2 = merchant1.bulk_discounts.create!(percentage: 0.50, threshold: 50)
 
       customer1 = Customer.create!(first_name: 'first_name1', last_name: 'last_name1')
 
       invoice1 = Invoice.create!(customer_id: customer1.id, status: 'completed')
 
-      item1 = Item.create!(merchant_id: merchant1.id, name: 'item1', description: 'widget description', unit_price: 14000)
-      item2 = Item.create!(merchant_id: merchant1.id, name: 'item2', description: 'widget description', unit_price: 14000)
+      item1 = Item.create!(merchant_id: merchant1.id, name: 'item1', description: 'widget description', unit_price: 140)
+      item2 = Item.create!(merchant_id: merchant1.id, name: 'item2', description: 'widget description', unit_price: 140)
 
-      invoice_item1 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id, quantity: 10, unit_price: 14000)
-      invoice_item2 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item2.id, quantity: 5, unit_price: 14000)
+      invoice_item1 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id, quantity: 10, unit_price: 140)
+      invoice_item2 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item2.id, quantity: 5, unit_price: 140)
+      invoice_item2 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item2.id, quantity: 50, unit_price: 140)
 
       visit "/admin/invoices/#{invoice1.id}"
 
-      expect(page).to have_content("Discounted Revenue: $1,820.00")
+      within '.total_revenue' do
+        expect(page).to have_content('Total Revenue: $91.00')
+      end
+
+      within '.discounted_revenue' do
+        expect(page).to have_content('Discounted Revenue: $53.20')
+      end
     end
   end
 
