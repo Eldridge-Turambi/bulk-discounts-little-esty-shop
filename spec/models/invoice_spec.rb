@@ -75,4 +75,42 @@ RSpec.describe Invoice, type: :model do
       expect(Invoice.incomplete_invoices.to_a).to eq([invoice_3, invoice_1])
     end
   end
+
+  describe '#discounted_revenue' do
+    it 'returns total revenue for an invoice' do
+      merchant1 = Merchant.create!(name: 'merchant1')
+
+      discount1 = merchant1.bulk_discounts.create!(percentage: 0.20, threshold: 10)
+      discount2 = merchant1.bulk_discounts.create!(percentage: 0.25, threshold: 15)
+
+      merchant2 = Merchant.create!(name: 'merchant2')
+
+      customer1 = Customer.create!(first_name: 'first_name1', last_name: 'last_name1')
+
+      item1 = merchant1.items.create!(name: 'item1', description: 'description1', unit_price: 100)
+      item2 = merchant1.items.create!(name: 'item2', description: 'description2', unit_price: 100)
+      item3 = merchant1.items.create!(name: 'item3', description: 'description3', unit_price: 100)
+      item4 = merchant1.items.create!(name: 'item4', description: 'description4', unit_price: 100)
+      item5 = merchant2.items.create!(name: 'item5', description: 'description5', unit_price: 100)
+
+
+      invoice1 = Invoice.create!(customer_id: customer1.id, status: 'completed')
+      invoice2 = Invoice.create!(customer_id: customer1.id, status: 'completed')
+
+      invoice_item_1 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id, quantity: 10,
+                                           unit_price: 100)
+      invoice_item_2 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item2.id, quantity: 10,
+                                           unit_price: 200)
+      invoice_item_3 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item3.id, quantity: 10,
+                                           unit_price: 300)
+      invoice_item_4 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item4.id, quantity: 10,
+                                           unit_price: 400)
+
+      invoice_item_5 = InvoiceItem.create!(invoice_id: invoice2.id, item_id: item5.id, quantity: 10,
+                                           unit_price: 700)
+      actual = invoice1.discounted_revenue
+      expected = 8000.0
+      expect(actual).to eq(expected)
+    end
+  end
 end
