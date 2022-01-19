@@ -22,8 +22,5 @@ class Invoice < ApplicationRecord
     invoice_items.sum do |invoice_item|
       invoice_item.invoice_item_discount_revenue
     end
-    # invoice_items.sum do |invoice_item|
-    #   ((1.0 - invoice_item.best_discount.percentage) * invoice_item.unit_price) * invoice_item.quantity
-    # end
   end
 end
