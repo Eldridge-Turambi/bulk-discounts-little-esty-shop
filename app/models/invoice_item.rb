@@ -11,7 +11,8 @@ class InvoiceItem < ApplicationRecord
 
   def best_discount
     all_discounts = item.merchant.bulk_discounts
-    the_right_discount = all_discounts
+    the_right_discount =
+    all_discounts
     .where("#{self.quantity} >= bulk_discounts.threshold")
     .order(percentage: :desc)
     .first
@@ -26,7 +27,6 @@ class InvoiceItem < ApplicationRecord
     end
   end
 end
-
 
 # def best_discount_with_ruby
 #   all_discounts = item.merchant.bulk_discounts
