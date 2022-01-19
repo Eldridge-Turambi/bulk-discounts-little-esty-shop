@@ -1,10 +1,10 @@
 <div class="new_discount">
   <%= form_with url: "/merchants/#{@merchant.id}/discounts", method: :post, local: true do |f| %>
     <%= f.label :percentage %>
-    <%= f.number_field :percentage %>
+    <%= f.number_field :percentage, step: 0.05 %>
 
     <%= f.label :threshold %>
-    <%= f.number_field :threshold %>
+    <%= f.number_field :threshold, step: 1 %>
 
     <%= f.submit "Create Discount" %>
   <% end %>
