@@ -47,17 +47,12 @@ RSpec.describe Invoice, type: :model do
 
       invoice = Invoice.create!(customer_id: customer.id, status: 'completed')
       invoice_2 = Invoice.create!(customer_id: customer.id, status: 'completed')
-      invoice_item_1 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_1.id, quantity: 7,
-                                           unit_price: 100)
-      invoice_item_2 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_2.id, quantity: 3,
-                                           unit_price: 200)
-      invoice_item_3 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_3.id, quantity: 2,
-                                           unit_price: 300)
-      invoice_item_4 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_4.id, quantity: 2,
-                                           unit_price: 400)
+      invoice_item_1 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_1.id, quantity: 7, unit_price: 100)
+      invoice_item_2 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_2.id, quantity: 3, unit_price: 200)
+      invoice_item_3 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_3.id, quantity: 2, unit_price: 300)
+      invoice_item_4 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_4.id, quantity: 2, unit_price: 400)
 
-      invoice_item_5 = InvoiceItem.create!(invoice_id: invoice_2.id, item_id: item_5.id, quantity: 1,
-                                           unit_price: 700)
+      invoice_item_5 = InvoiceItem.create!(invoice_id: invoice_2.id, item_id: item_5.id, quantity: 1, unit_price: 700)
       actual = invoice.total_revenue
       expected = 2700
       expect(actual).to eq(expected)
@@ -97,19 +92,16 @@ RSpec.describe Invoice, type: :model do
       invoice1 = Invoice.create!(customer_id: customer1.id, status: 'completed')
       invoice2 = Invoice.create!(customer_id: customer1.id, status: 'completed')
 
-      invoice_item_1 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id, quantity: 10,
-                                           unit_price: 100)
-      invoice_item_2 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item2.id, quantity: 10,
-                                           unit_price: 200)
-      invoice_item_3 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item3.id, quantity: 10,
-                                           unit_price: 300)
-      invoice_item_4 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item4.id, quantity: 10,
-                                           unit_price: 400)
+      invoice_item_1 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item1.id, quantity: 10, unit_price: 100)
+      invoice_item_2 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item2.id, quantity: 10, unit_price: 200)
+      invoice_item_3 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item3.id, quantity: 10, unit_price: 300)
+      invoice_item_4 = InvoiceItem.create!(invoice_id: invoice1.id, item_id: item4.id, quantity: 15, unit_price: 400)
+      invoice_item_5 = InvoiceItem.create!(invoice_id: invoice2.id, item_id: item5.id, quantity: 15, unit_price: 700)
 
-      invoice_item_5 = InvoiceItem.create!(invoice_id: invoice2.id, item_id: item5.id, quantity: 10,
-                                           unit_price: 700)
       actual = invoice1.discounted_revenue
-      expected = 8000.0
+      #calculator calculation done with calculator multiple times
+      expected = 9300.0
+
       expect(actual).to eq(expected)
     end
   end
